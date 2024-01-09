@@ -1,5 +1,6 @@
 package com.jsyeo.dailydevcafe.domain;
 
+import com.jsyeo.dailydevcafe.dto.MemberDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +26,14 @@ public class Member {
 
     @NotEmpty
     private String password;
+
+    public static Member createMember(MemberDto memberDto) {
+        Member member = new Member();
+        member.name = memberDto.getName();
+        member.email = memberDto.getEmail();
+        member.password = memberDto.getPassword();
+        return member;
+    }
 
     public static Member createMember(String name, String email, String password) {
         Member member = new Member();
