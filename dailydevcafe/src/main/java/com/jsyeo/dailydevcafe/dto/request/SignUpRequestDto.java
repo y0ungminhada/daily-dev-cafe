@@ -16,6 +16,10 @@ public class SignUpRequestDto {
     private String email;
 
     @NotBlank
+    @Size(min = 2, max = 10)
+    private String nickname;
+
+    @NotBlank
     @Size(min = 8, max = 20)
     private String password;
 
