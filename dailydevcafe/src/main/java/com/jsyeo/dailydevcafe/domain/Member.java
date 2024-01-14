@@ -6,10 +6,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Member {
 
     @Id
@@ -21,25 +27,12 @@ public class Member {
     private String name;
 
     @NotEmpty
+    private String nickname;
+
+    @NotEmpty
     @Column(unique = true)
     private String email;
 
     @NotEmpty
     private String password;
-
-    public static Member createMember(MemberDto memberDto) {
-        Member member = new Member();
-        member.name = memberDto.getName();
-        member.email = memberDto.getEmail();
-        member.password = memberDto.getPassword();
-        return member;
-    }
-
-    public static Member createMember(String name, String email, String password) {
-        Member member = new Member();
-        member.name = name;
-        member.email = email;
-        member.password = password;
-        return member;
-    }
 }

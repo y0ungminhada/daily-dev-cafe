@@ -1,38 +1,36 @@
 package com.jsyeo.dailydevcafe.api;
 
-import com.jsyeo.dailydevcafe.dto.MemberDto;
+import com.jsyeo.dailydevcafe.dto.request.SignInRequestDto;
 import com.jsyeo.dailydevcafe.dto.request.SignUpRequestDto;
 import com.jsyeo.dailydevcafe.dto.response.ResponseDto;
+import com.jsyeo.dailydevcafe.dto.response.SignInResponseDto;
 import com.jsyeo.dailydevcafe.dto.response.SignUpResponseDto;
 import com.jsyeo.dailydevcafe.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping()
 @RequiredArgsConstructor
 public class MemberApiController {
 
     private final MemberService memberService;
 
-    @PostMapping("/signup")
-    public ResponseEntity registerMember(@RequestBody @Valid SignUpRequestDto signUpRequestDto) {
+    @PostMapping("/auth/signup")
+    public ResponseEntity<? super SignUpResponseDto> signUp(@RequestBody @Valid SignUpRequestDto signUpRequestDto) {
 
-        MemberDto memberDto = new MemberDto();
-        memberDto.setName(signUpRequestDto.getName());
-        memberDto.setEmail(signUpRequestDto.getEmail());
-        memberDto.setPassword(signUpRequestDto.getPassword());
+        ResponseDto responseDto = memberService.signUp(signUpRequestDto);
 
-        Long saveId = memberService.join(memberDto);
-        memberDto.setId(saveId);
-        memberDto.setPassword(null);
+        return ResponseEntity.status(responseDto.getCode()).body(responseDto);
+    }
 
-        ResponseDto responseDto = new SignUpResponseDto();
-        responseDto.setData(memberDto);
+    @PostMapping("/auth/signin")
+    public ResponseEntity<? super SignInResponseDto> signIn(@RequestBody @Valid SignInRequestDto signInRequestDto) {
 
-        return ResponseEntity.ok().body(responseDto);
+        ResponseDto responseDto = memberService.signIn(signInRequestDto);
+
+        return ResponseEntity.status(responseDto.getCode()).body(responseDto);
     }
 }

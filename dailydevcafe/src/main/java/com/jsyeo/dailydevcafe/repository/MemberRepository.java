@@ -8,6 +8,10 @@ import java.util.List;
 public interface MemberRepository {
     Long save(Member member);
 
+    boolean existsByEmail(String email);
+
+    boolean existsByNickname(String nickname);
+
     Member findById(Long memberId);
 
     Member findByEmail(String email);
