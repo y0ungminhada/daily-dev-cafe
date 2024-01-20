@@ -1,7 +1,6 @@
 package com.jsyeo.dailydevcafe.service;
 
 import com.jsyeo.dailydevcafe.domain.Member;
-import com.jsyeo.dailydevcafe.dto.MemberDto;
 import com.jsyeo.dailydevcafe.dto.request.SignInRequestDto;
 import com.jsyeo.dailydevcafe.dto.request.SignUpRequestDto;
 import com.jsyeo.dailydevcafe.dto.response.ResponseDto;
@@ -48,7 +47,7 @@ public class MemberService {
             return SignUpResponseDto.duplicateNickname(new ResponseMemberDto(member));
         }
 
-        Long saveId = memberRepository.save(member);
+        memberRepository.save(member);
         ResponseMemberDto responseMemberDto = new ResponseMemberDto(member);
 
         return SignUpResponseDto.success(responseMemberDto);
