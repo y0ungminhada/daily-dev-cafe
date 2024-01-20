@@ -20,7 +20,7 @@ public class ExControllerAdvice {
         responseDto.setCode(HttpStatus.BAD_REQUEST.value());
         responseDto.setMessage("잘못된 요청입니다.");
         responseDto.setData(e.getMessage());
-        
+
         return ResponseEntity.badRequest().body(responseDto);
     }
 
