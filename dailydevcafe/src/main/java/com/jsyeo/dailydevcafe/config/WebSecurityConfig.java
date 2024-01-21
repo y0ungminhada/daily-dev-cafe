@@ -1,5 +1,6 @@
 package com.jsyeo.dailydevcafe.config;
 
+import com.jsyeo.dailydevcafe.handler.OAuth2FailureHandler;
 import com.jsyeo.dailydevcafe.handler.OAuth2SuccessHandler;
 import com.jsyeo.dailydevcafe.security.FailedAuthenticationEntryPoint;
 import com.jsyeo.dailydevcafe.security.JwtAuthenticationalFilter;
@@ -31,6 +32,7 @@ public class WebSecurityConfig {
     private final JwtAuthenticationalFilter jwtAuthenticationalFilter;
     private final DefaultOAuth2UserService oAuth2UserService;
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
+    private final OAuth2FailureHandler oAuth2FailureHandler;
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
@@ -50,6 +52,7 @@ public class WebSecurityConfig {
                         .redirectionEndpoint(endpoint -> endpoint.baseUri("/oauth2/callback/kakao"))
                         .userInfoEndpoint(endpoint -> endpoint.userService(oAuth2UserService))
                         .successHandler(oAuth2SuccessHandler)
+                        .failureHandler(oAuth2FailureHandler)
                 )
                 .exceptionHandling(exceptionHandling -> exceptionHandling
                         .authenticationEntryPoint(new FailedAuthenticationEntryPoint()))

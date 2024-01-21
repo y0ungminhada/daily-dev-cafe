@@ -25,7 +25,6 @@ public class Member {
     private String nickname;
 
     @NotEmpty
-    @Column(unique = true)
     private String email;
 
     @NotEmpty
