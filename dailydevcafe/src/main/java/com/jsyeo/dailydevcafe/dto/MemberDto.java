@@ -1,6 +1,7 @@
 package com.jsyeo.dailydevcafe.dto;
 
 import com.jsyeo.dailydevcafe.domain.Member;
+import com.jsyeo.dailydevcafe.domain.MemberType;
 import com.jsyeo.dailydevcafe.dto.request.SignInRequestDto;
 import com.jsyeo.dailydevcafe.dto.request.SignUpRequestDto;
 import jakarta.validation.constraints.*;
@@ -13,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MemberDto {
 
-    private Long id;
+    private String id;
     private String name;
     private String nickname;
     private String email;

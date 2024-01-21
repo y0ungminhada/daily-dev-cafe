@@ -1,4 +1,4 @@
-package com.jsyeo.dailydevcafe.exception.advice;
+package com.jsyeo.dailydevcafe.handler;
 
 import com.jsyeo.dailydevcafe.dto.response.ResponseDto;
 import lombok.extern.slf4j.Slf4j;

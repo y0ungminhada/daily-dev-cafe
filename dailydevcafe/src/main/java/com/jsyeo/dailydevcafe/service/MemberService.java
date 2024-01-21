@@ -1,6 +1,7 @@
 package com.jsyeo.dailydevcafe.service;
 
 import com.jsyeo.dailydevcafe.domain.Member;
+import com.jsyeo.dailydevcafe.dto.MemberDto;
 import com.jsyeo.dailydevcafe.dto.request.SignInRequestDto;
 import com.jsyeo.dailydevcafe.dto.request.SignUpRequestDto;
 import com.jsyeo.dailydevcafe.dto.response.ResponseDto;
@@ -31,13 +32,7 @@ public class MemberService {
     @Transactional
     public SignUpResponseDto signUp(SignUpRequestDto requestDto) {
 
-        Member member = Member.builder()
-                .id(null)
-                .name(requestDto.getName())
-                .email(requestDto.getEmail())
-                .nickname(requestDto.getNickname())
-                .password(passwordEncoder.encode(requestDto.getPassword()))
-                .build();
+        Member member = new Member(requestDto);
 
         if(memberRepository.existsByEmail(member.getEmail())) {
             return SignUpResponseDto.duplicateEmail(new ResponseMemberDto(member));
@@ -69,6 +64,4 @@ public class MemberService {
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
-
-
 }

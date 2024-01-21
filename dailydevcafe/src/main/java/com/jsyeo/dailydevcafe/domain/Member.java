@@ -1,32 +1,27 @@
 package com.jsyeo.dailydevcafe.domain;
 
-import com.jsyeo.dailydevcafe.dto.MemberDto;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.jsyeo.dailydevcafe.dto.request.SignUpRequestDto;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Member {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "member_id")
-    private Long id;
+    private String id;
 
     @NotEmpty
     private String name;
 
-    @NotEmpty
     private String nickname;
 
     @NotEmpty
@@ -35,4 +30,22 @@ public class Member {
 
     @NotEmpty
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private MemberType type = MemberType.APP;
+
+    public Member(SignUpRequestDto dto) {
+        this.name = dto.getName();
+        this.nickname = dto.getNickname();
+        this.email = dto.getEmail();
+        this.password = dto.getPassword();
+    }
+
+    public Member(String id, String email, String name, MemberType type) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = "Pa$sw0rd";
+        this.type = type;
+    }
 }

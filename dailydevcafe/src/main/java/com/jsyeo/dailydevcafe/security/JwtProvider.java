@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 @Component
+@Slf4j
 public class JwtProvider {
 
     @Value("${secret-key}")
@@ -46,8 +48,8 @@ public class JwtProvider {
                     .build()
                     .parseClaimsJws(jwt)
                     .getBody();
-        } catch (Exception exception) {
-            exception.printStackTrace();
+        } catch (Exception e) {
+            log.error("Could not set user authentication in security context", e);
             return null;
         }
 

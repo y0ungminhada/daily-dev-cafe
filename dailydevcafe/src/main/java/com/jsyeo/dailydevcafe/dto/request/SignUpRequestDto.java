@@ -20,7 +20,8 @@ public class SignUpRequestDto {
     private String nickname;
 
     @NotBlank
-    @Size(min = 8, max = 20)
+    // 8~20자, 적어도 하나의 숫자, 알파벳 소문자, 대문자, 특수문자가 포함되어야하며, 공백이 없어야한다.
+    @Pattern(regexp = "^.*(?=.{8,20})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$")
     private String password;
 
     @NotNull

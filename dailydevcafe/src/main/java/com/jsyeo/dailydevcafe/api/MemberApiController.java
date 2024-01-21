@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping()
 @RequiredArgsConstructor
 public class MemberApiController {
 
@@ -32,5 +31,16 @@ public class MemberApiController {
         ResponseDto responseDto = memberService.signIn(signInRequestDto);
 
         return ResponseEntity.status(responseDto.getCode()).body(responseDto);
+    }
+
+    @GetMapping("/auth/oauth2")
+    public String oauth2Login() {
+        return "OAuth Login";
+    }
+
+    @GetMapping("/auth/oauth-response/{token}/{expiredDate}")
+    public String oauth2Success(@PathVariable("token") String token, @PathVariable("expiredDate") String expiredDate) {
+        System.out.println("token = " + token);
+        return token + "/" + expiredDate;
     }
 }
