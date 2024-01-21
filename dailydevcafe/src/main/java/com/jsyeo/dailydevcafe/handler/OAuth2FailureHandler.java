@@ -20,6 +20,6 @@ public class OAuth2FailureHandler extends SimpleUrlAuthenticationFailureHandler 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{ \"message\": \"인증에 실패했습니다.\",\"data\": \"" + exception.getMessage() + "\"}");
+        response.getWriter().write("{ \"code\": 400,\"message\": \"인증에 실패했습니다.\",\"data\": \"" + exception.getMessage() + "\"} ");
     }
 }
