@@ -1,16 +1,13 @@
 package com.jsyeo.dailydevcafe.repository;
 
 import com.jsyeo.dailydevcafe.domain.Member;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface MemberRepository extends JpaRepository<Member, Long> {
 
-public interface MemberRepository {
-    Long save(Member member);
+    boolean existsByEmail(String email);
 
-    Member findById(Long memberId);
+    boolean existsByNickname(String nickname);
 
     Member findByEmail(String email);
-
-    List<Member> findAll();
 }
