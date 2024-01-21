@@ -32,6 +32,7 @@ public class MemberService {
     @Transactional
     public SignUpResponseDto signUp(SignUpRequestDto requestDto) {
 
+        requestDto.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         Member member = new Member(requestDto);
 
         if(memberRepository.existsByEmail(member.getEmail())) {

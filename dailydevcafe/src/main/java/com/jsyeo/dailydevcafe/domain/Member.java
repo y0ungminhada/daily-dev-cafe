@@ -22,6 +22,7 @@ public class Member {
     @NotEmpty
     private String name;
 
+    @NotEmpty
     private String nickname;
 
     @NotEmpty
@@ -43,6 +44,7 @@ public class Member {
     public Member(String id, String email, String name, MemberType type) {
         this.id = id;
         this.name = name;
+        this.nickname = id;
         this.email = email;
         this.password = "Pa$sw0rd";
         this.type = type;
